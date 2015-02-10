@@ -1,5 +1,6 @@
 import model
 import csv
+from datetime import datetime
 
 def load_users(session):
     # use u.user
@@ -18,8 +19,13 @@ def load_movies(session):
         reader = csv.reader(movie_file, delimiter='|')
         for row in reader:
             name = row[1]
+            if name == "unknown":
+                continue
             name = name.decode("latin-1") 
-            movie = model.Movie(name=name, released_at=row[2], imdb_url=row[4])
+            released_string = row[2]
+            print released_string
+            released_at = datetime.strptime(released_string, "%d-%b-%Y")
+            movie = model.Movie(name=name, released_at=released_at, imdb_url=row[4])
             session.add(movie)
         session.commit()
 
