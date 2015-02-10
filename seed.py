@@ -3,7 +3,14 @@ import csv
 
 def load_users(session):
     # use u.user
-    pass
+    with open('seed_data/u.user', 'rb') as user_file:
+        reader = csv.reader(user_file, delimiter='|')
+        for row in reader:
+            user = model.User(age=row[1], zipcode=row[4])
+            session.add(user)
+        session.commit()
+
+
 
 def load_movies(session):
     # use u.item
@@ -34,6 +41,7 @@ def main(session):
     # You'll call each of the load_* functions with the session as an argument
     load_ratings(session)
     load_movies(session)
+    load_users(session)
 
 if __name__ == "__main__":
     s= model.connect()
