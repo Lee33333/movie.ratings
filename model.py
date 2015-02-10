@@ -24,7 +24,8 @@ class Movie(Base):
 
     id = Column(Integer, primary_key = True)
     name = Column(String(100), nullable = False)
-    released_at = Column(DateTime, nullable = True)
+    released_at = Column(String(25), nullable = True)
+    #FIXME changed type from string to datetime
     imdb_url = Column(String(200), nullable = True)
 
 class Rating(Base):
