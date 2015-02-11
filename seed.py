@@ -19,12 +19,15 @@ def load_movies(session):
         reader = csv.reader(movie_file, delimiter='|')
         for row in reader:
             name = row[1]
-            if name == "unknown":
-                continue
             name = name.decode("latin-1") 
             released_string = row[2]
             print released_string
-            released_at = datetime.strptime(released_string, "%d-%b-%Y")
+            if released_string != '':
+                print "if"
+                released_at = datetime.strptime(released_string, "%d-%b-%Y")
+            else:
+                print "else"
+                released_at = None
             movie = model.Movie(name=name, released_at=released_at, imdb_url=row[4])
             session.add(movie)
         session.commit()

@@ -21,6 +21,9 @@ class User(Base):
     age = Column(Integer, nullable=True)
     zipcode = Column(String(15), nullable=True)
 
+    def __repr__(self):
+        return "<User id=%d>" %(self.id)
+
 class Movie(Base):
     __tablename__ = 'movies'
 
@@ -29,6 +32,9 @@ class Movie(Base):
     name = Column(String(100), nullable = False)
     released_at = Column(DateTime, nullable = True)
     imdb_url = Column(String(200), nullable = True)
+
+    def __repr__(self):
+        return "<Movie id=%d name = %s>" % (self.id, self.name)
 
 class Rating(Base):
     __tablename__ = "ratings"
@@ -43,6 +49,9 @@ class Rating(Base):
 
     movie = relationship("Movie",
             backref=backref("ratings", order_by=id))
+
+    def __repr__(self):
+        return "<Rating id=%d, Movie id=%d, User id=%d, Rating=%d >" %(self.id, self.movie_id, self.user_id, self.rating)
 
 ### End class declarations
 
