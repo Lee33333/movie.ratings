@@ -24,7 +24,7 @@ class User(Base):
     zipcode = Column(String(15), nullable=True)
 
     def __repr__(self):
-        return "<User id=%d>" %(self.id)
+        return "<User id=%r, email=%s>" %(self.id, self.email)
 
 class Movie(Base):
     __tablename__ = 'movies'

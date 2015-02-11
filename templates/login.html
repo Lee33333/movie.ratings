@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<form action="/movie_list" method="POST">
+    <h2>Login!</h2>
+    <input type="email" name="email" placeholder="Email Address" required autofocus/>
+    <br>
+    <input type="password" name="password" placeholder="Password" require autofocus/>
+    <br>
+    <input type="submit" name="submit" value="Login" />
+</form>
+{% endblock %}
