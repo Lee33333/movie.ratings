@@ -57,6 +57,14 @@ class Rating(Base):
 
 ### End class declarations
 
+def get_user(email, password):
+    table_user = session.query(User).filter(User.email == email).first()
+
+    if table_user.password == password:
+        return table_user
+
+    else:
+        return False
 
 def main():
     """In case we need this for something"""
