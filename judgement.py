@@ -65,7 +65,6 @@ def movie_list():
 @app.route("/all_users")
 def get_users():
     all_users = model.get_all_users()
-    print all_users
     return render_template("all_users.html", all_users=all_users)
 
 
