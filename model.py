@@ -72,6 +72,13 @@ def get_all_users():
     return all_users
 
 
+def get_movies_by_user(user_id):
+    all_ratings = session.query(Rating).filter(Rating.user_id==user_id).movie.all()
+    print all_ratings
+
+    return all_ratings
+
+
 
 
 

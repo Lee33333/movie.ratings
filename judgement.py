@@ -69,5 +69,13 @@ def get_users():
     return render_template("all_users.html", all_users=all_users)
 
 
+
+@app.route("/movies/<int:user_id>")
+def get_movies(user_id):
+    all_movies = model.get_movies_by_user(user_id)
+
+    return render_template("movie_list.html", all_movies=all_movies)
+
+
 if __name__== "__main__":
     app.run(debug = True)
