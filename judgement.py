@@ -1,8 +1,11 @@
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, flash
 import model
+
+## OUR DATABSE ACCEPTS AGES AS NON INTEGERS AND MULTIPLES OF EMAILS FIXME
 
 app = Flask(__name__)
 app.secret_key = '\xf5!\x07!qj\xa4\x08\xc6\xf8\n\x8a\x95m\xe2\x04g\xbb\x98|U\xa2f\x03'
+
 
 @app.route("/")
 def index():
@@ -28,18 +31,18 @@ def authenticate():
     user_in_db = model.get_user(email, password)
 
     if user_in_db == False:
+        flash("Please try again, we couldn't locate your information in the database")
         return redirect("/login")
 
     else:
         user_id = user_in_db.id
-        print user_id
         session["current_user"] = user_id
-        print session["current_user"]
+        flash("Welcome")
         return render_template("authenticate.html")
 
 
 
-@app.route("/movie_list", methods=["POST"])
+@app.route("/add_user", methods=["POST"])
 def movie_list():
 
     email = request.form.get("email")
@@ -51,7 +54,20 @@ def movie_list():
     model.session.add(new_user)
     model.session.commit()
 
-    return render_template("movie_list.html", )
+    session["current_user"] = new_user.id
+
+    flash("New account created!")
+
+    return render_template("add_user.html", )
+
+
+
+@app.route("/all_users")
+def get_users():
+    all_users = model.get_all_users()
+    print all_users
+    return render_template("all_users.html", all_users=all_users)
+
 
 if __name__== "__main__":
     app.run(debug = True)

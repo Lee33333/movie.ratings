@@ -66,6 +66,15 @@ def get_user(email, password):
     else:
         return False
 
+
+def get_all_users():
+    all_users = session.query(User).limit(10).all()
+    return all_users
+
+
+
+
+
 def main():
     """In case we need this for something"""
     pass
