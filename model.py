@@ -75,11 +75,13 @@ def get_movies_by_user(user_id):
     all_ratings = session.query(Rating).filter(Rating.user_id==user_id).all()
     all_movies = []
     for r in all_ratings:
-        all_movies.append(r.movie)
+        all_movies.append((r.movie, r.rating))
     return all_movies
 
 
-
+def get_ratings_by_movie(movie_id):
+    all_ratings = session.query(Rating).filter(Rating.movie_id==movie_id).all()
+    return all_ratings
 
 
 

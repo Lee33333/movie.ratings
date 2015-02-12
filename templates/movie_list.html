@@ -2,8 +2,8 @@
 {% block body %}
 <h1>MOVIE LIST PAGE</h1>
 
-{% for movie in all_movies %}
-<h2> {{movie.name}} </h2>
+{% for movie, rating in all_movies %}
+<h2> Movie:{{movie.name}}   Rating:{{rating}} <a href="/movie/{{movie.id}}"> visit ratings </a></h2>
 {% endfor%}
 
 {% endblock %}
