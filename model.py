@@ -12,7 +12,6 @@ session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=F
 Base = declarative_base()
 Base.query = session.query_property()
 
-
 ### Class declarations go here
 class User(Base):
     __tablename__ = "users"
@@ -73,10 +72,12 @@ def get_all_users():
 
 
 def get_movies_by_user(user_id):
-    all_ratings = session.query(Rating).filter(Rating.user_id==user_id).movie.all()
-    print all_ratings
+    all_ratings = session.query(Rating).filter(Rating.user_id==user_id).all()
+    all_movies = []
+    for r in all_ratings:
+        all_movies.append(r.movie)
+    return all_movies
 
-    return all_ratings
 
 
 
