@@ -84,6 +84,9 @@ def get_ratings_by_movie(movie_id):
     return all_ratings
 
 
+def get_rating_by_user(user_id, movie_id):
+    rating = session.query(Rating).filter(Rating.user_id==user_id, Rating.movie_id==movie_id).first()
+    return rating
 
 def main():
     """In case we need this for something"""
