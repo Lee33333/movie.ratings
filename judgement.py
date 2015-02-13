@@ -77,9 +77,21 @@ def get_user(user_id):
 
 
 
-@app.route("/movie/<int:movie_id>")
+@app.route("/movie/<int:movie_id>", methods=["POST", "GET"])
 def get_movie(movie_id):
     all_ratings = model.get_ratings_by_movie(movie_id)
+    existing_rating = model.get_rating_by_user(user_id)
+
+    if existing_rating:
+        #show rating
+        
+
+    if request.form.get("number"):
+        rating = int(request.form.get("number"))
+        new_rating = model.Rating(user_id=session["current_user"], movie_id=movie_id, rating=rating)
+        model.session.add(new_rating)
+        model.session.commit()
+        print "HEEEEEEEEEEEEEEEEEEEEELLLLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOO", new_rating
 
     return render_template("rating_list.html", all_ratings=all_ratings)
 
